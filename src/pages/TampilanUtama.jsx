@@ -1,26 +1,28 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function TampilanUtama() {
+  const navigate = useNavigate();
+
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900">
+    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans">
       <nav className="bg-slate-950 text-white">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
           <h1 className="text-xl font-bold tracking-tight">Truck Splash</h1>
 
           <div className="flex items-center gap-3">
-            <Link
-              to="/login"
-              className="rounded-full border border-slate-700 px-4 py-2 text-sm text-slate-200 hover:border-slate-500 hover:text-white"
+            <button
+              onClick={() => navigate("/login")}
+              className="rounded-full border border-slate-700 px-4 py-2 text-sm text-slate-200 hover:border-slate-500 hover:text-white transition-colors"
             >
               Masuk
-            </Link>
+            </button>
 
-            <Link
-              to="/daftar"
-              className="rounded-full bg-emerald-500 px-5 py-2 text-sm font-semibold text-white hover:bg-emerald-600"
+            <button
+              onClick={() => navigate("/daftar")}
+              className="rounded-full bg-emerald-500 px-5 py-2 text-sm font-semibold text-white hover:bg-emerald-600 transition-colors"
             >
               Daftar
-            </Link>
+            </button>
           </div>
         </div>
       </nav>
@@ -38,36 +40,37 @@ function TampilanUtama() {
           </p>
 
           <div className="flex gap-4">
-            <div className="flex-1 rounded-3xl bg-white p-6 shadow">
-              <p className="text-xl font-semibold">500k+</p>
-              <p className="text-sm text-slate-500">UMKM terbantu</p>
+            <div className="flex-1 rounded-3xl bg-white p-6 shadow-sm border border-slate-100">
+              <p className="text-xl font-bold text-[#0f172a]">500k+</p>
+              <p className="text-sm text-slate-500 font-medium">UMKM terbantu</p>
             </div>
 
-            <div className="flex-1 rounded-3xl bg-white p-6 shadow">
-              <p className="text-xl font-semibold">Rp 4.2T</p>
-              <p className="text-sm text-slate-500">Total pendanaan</p>
+            <div className="flex-1 rounded-3xl bg-white p-6 shadow-sm border border-slate-100">
+              <p className="text-xl font-bold text-[#0f172a]">Rp 4.2T</p>
+              <p className="text-sm text-slate-500 font-medium">Total pendanaan</p>
             </div>
           </div>
         </section>
 
-        <section className="rounded-3xl bg-white shadow overflow-hidden">
+        <section className="rounded-[2rem] bg-white shadow-xl shadow-slate-200/50 overflow-hidden border border-slate-100">
           <img
             src="/rectangle9.png"
             alt="UMKM"
-            className="w-full h-64 object-cover"
+            className="w-full h-80 object-cover" 
           />
 
-          <div className="p-6">
-            <p className="text-sm text-slate-500">Bunga mulai</p>
-            <p className="text-2xl font-bold text-emerald-600">
+          <div className="p-8">
+            <p className="text-xs text-slate-400 font-bold uppercase tracking-widest mb-1">Bunga mulai</p>
+            <p className="text-4xl font-black text-emerald-600">
               1.2% / bulan
             </p>
+            {/* Tombol Ajukan Sekarang telah dihapus agar fokus pada informasi bunga saja */}
           </div>
         </section>
       </main>
 
-      <footer className="mt-10 text-center text-sm text-slate-500 py-6">
-        TruckSplash@2026
+      <footer className="mt-10 text-center text-xs font-bold text-slate-400 py-10 tracking-widest uppercase">
+        Truck Splash &copy; 2026
       </footer>
     </div>
   );

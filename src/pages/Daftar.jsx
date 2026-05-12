@@ -82,9 +82,11 @@ export default function Daftar() {
           </div>
 
           {/* BUTTON */}
-          <button className="w-full bg-green-600 p-3 rounded-lg font-semibold hover:bg-green-700 transition">
-            Daftar Sekarang →
-          </button>
+          <Link to="/login">
+             <button className="w-full bg-green-600 p-3 rounded-lg font-semibold hover:bg-green-700 transition">
+                Daftar Sekarang →
+             </button>
+          </Link>
 
           {/* FOOTER */}
           <p className="text-center text-gray-400 mt-6 text-sm">

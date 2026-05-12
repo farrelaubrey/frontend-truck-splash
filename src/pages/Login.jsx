@@ -1,22 +1,25 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
-  // STATE → menyimpan mode login (user / admin)
   const [mode, setMode] = useState("user");
+  const navigate = useNavigate();
+
+  // FUNCTION LOGIN
+  const handleLogin = () => {
+    if (mode === "user") {
+      navigate("/DashboardUser");
+    } else {
+      navigate("/DashboardAdmin");
+    }
+  };
 
   return (
-    // CONTAINER UTAMA
     <div className="min-h-screen flex bg-[#020617] text-white">
-
       {/* LEFT SECTION */}
       <section className="w-1/2 flex flex-col justify-between p-12">
-        
-        {/* TEXT */}
         <div>
-          <h1 className="text-lg font-semibold mb-12">
-            Truck Splash
-          </h1>
+          <h1 className="text-lg font-semibold mb-12">Truck Splash</h1>
 
           <h2 className="text-5xl font-bold leading-tight mb-6">
             Pemberdayaan <br />
@@ -29,7 +32,6 @@ export default function Login() {
           </p>
         </div>
 
-        {/* IMAGE */}
         <img
           src="/Frame.png"
           alt="Ilustrasi UMKM"
@@ -39,31 +41,21 @@ export default function Login() {
 
       {/* RIGHT SECTION */}
       <section className="w-1/2 flex items-center justify-center bg-[#0F172A]">
-        
-        {/* CARD LOGIN */}
         <div className="w-full max-w-md bg-[#111827] p-8 rounded-2xl shadow-lg">
+          <h2 className="text-3xl font-bold text-center mb-2">Selamat Datang</h2>
 
-          {/* TITLE */}
-          <h2 className="text-3xl font-bold text-center mb-2">
-            Selamat Datang
-          </h2>
-
-          {/* DESKRIPSI DINAMIS */}
           <p className="text-gray-400 text-center mb-6">
             {mode === "user"
               ? "Masuk ke akun Anda untuk mengelola finansial."
               : "Masuk ke akun Admin untuk mengelola sistem."}
           </p>
 
-          {/* TOGGLE MODE */}
+          {/* TOGGLE */}
           <div className="flex bg-gray-300 rounded-xl p-1 mb-6">
-            
             <button
               onClick={() => setMode("user")}
               className={`w-1/2 py-2 rounded-lg font-medium transition ${
-                mode === "user"
-                  ? "bg-white text-black"
-                  : "text-black"
+                mode === "user" ? "bg-white text-black" : "text-black"
               }`}
             >
               User Login
@@ -72,17 +64,14 @@ export default function Login() {
             <button
               onClick={() => setMode("admin")}
               className={`w-1/2 py-2 rounded-lg font-medium transition ${
-                mode === "admin"
-                  ? "bg-white text-black"
-                  : "text-black"
+                mode === "admin" ? "bg-white text-black" : "text-black"
               }`}
             >
               Admin Login
             </button>
-
           </div>
 
-          {/* INPUT EMAIL */}
+          {/* EMAIL */}
           <div className="mb-4">
             <label className="text-sm text-gray-300">
               {mode === "user" ? "Email atau Username" : "Email Admin"}
@@ -91,19 +80,21 @@ export default function Login() {
             <input
               type="text"
               placeholder={
-                mode === "user"
-                  ? "user@example.com"
-                  : "admin@example.com"
+                mode === "user" ? "user@example.com" : "admin@example.com"
               }
               className="w-full mt-2 p-3 rounded-lg bg-gray-200 text-black focus:outline-none focus:ring-2 focus:ring-green-500"
             />
           </div>
 
-          {/* INPUT PASSWORD */}
+          {/* PASSWORD */}
           <div className="mb-2">
             <div className="flex justify-between text-sm text-gray-300">
               <span>Password</span>
-              <span className="text-green-400 cursor-pointer">
+              {/* NAVIGASI KE LUPA PASSWORD */}
+              <span 
+                onClick={() => navigate("/LupaPassword")} 
+                className="text-green-400 cursor-pointer hover:underline"
+              >
                 Lupa Password?
               </span>
             </div>
@@ -114,44 +105,55 @@ export default function Login() {
             />
           </div>
 
-          {/* REMEMBER ME */}
+          {/* REMEMBER */}
           <div className="flex items-center gap-2 text-sm text-gray-400 mb-6">
-            <input type="checkbox" />
+            <input type="checkbox" className="accent-green-600" />
             <span>Ingat saya di perangkat ini</span>
           </div>
 
           {/* BUTTON LOGIN */}
-          <button className="w-full bg-green-600 p-3 rounded-lg font-semibold hover:bg-green-700 transition">
-            {mode === "user"
-              ? "Masuk Sekarang →"
-              : "Masuk sebagai Admin →"}
+          <button
+            onClick={handleLogin}
+            className="w-full bg-green-600 p-3 rounded-lg font-semibold hover:bg-green-700 transition mb-4 active:scale-[0.98]"
+          >
+            {mode === "user" ? "Masuk Sekarang →" : "Masuk sebagai Admin →"}
           </button>
 
-          {/* SOCIAL LOGIN */}
-          <div className="text-center text-gray-400 my-4">
-            ATAU
-          </div>
+          {/* LOGIKA KONDISIONAL UNTUK LOGIN GOOGLE */}
+          {mode === "user" && (
+            <>
+              <div className="text-center text-gray-400 my-4 text-xs font-bold tracking-widest">
+                ATAU
+              </div>
 
-          <div className="flex gap-4">
-            <button className="w-1/2 bg-gray-200 text-black py-2 rounded-lg hover:bg-gray-300">
-              Google
-            </button>
-            <button className="w-1/2 bg-gray-200 text-black py-2 rounded-lg hover:bg-gray-300">
-              Facebook
-            </button>
-          </div>
+              <div className="flex gap-4">
+                <button className="w-full bg-gray-200 text-black py-2 rounded-lg font-bold hover:bg-gray-300 transition active:scale-[0.98] flex items-center justify-center gap-2">
+                  <svg width="18" height="18" viewBox="0 0 24 24">
+                    <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                    <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                    <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                    <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 12-4.53z" fill="#EA4335"/>
+                  </svg>
+                  Google
+                </button>
+              </div>
+            </>
+          )}
 
           {/* FOOTER */}
           {mode === "user" ? (
             <p className="text-center text-gray-400 mt-6 text-sm">
               Belum punya akun?{" "}
-              <Link to="/Daftar" className="text-green-400 hover:underline">
+              <button 
+                onClick={() => navigate("/Daftar")} 
+                className="text-green-400 hover:underline font-semibold"
+              >
                 Daftar Sekarang
-              </Link>
+              </button>
             </p>
           ) : (
             <p className="text-center text-gray-400 mt-6 text-sm">
-              Halaman ini khusus untuk admin
+              Halaman ini khusus untuk admin internal.
             </p>
           )}
         </div>
